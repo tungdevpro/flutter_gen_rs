@@ -6,7 +6,7 @@ Just a little knowledge about Rust, but over time it's beneficial for me -_-
 Yeh, below here, there are some features (done, doing) 
 
 - [x] Generate a bloc file
-- [ ] Generate a event file
+- [ ] Generate an event file
 - [ ] Generate a state file
 
 ## Installation
