@@ -1,7 +1,9 @@
-use std::process::exit;
 use clap::{Parser, Subcommand};
+use std::fmt::format;
+use std::process::exit;
 
 mod helper;
+mod template;
 
 fn main() {
     let cli = Cli::parse();
@@ -19,7 +21,12 @@ fn main() {
 }
 
 #[derive(Parser, Debug)]
-#[command(name = "fgr", about = "This is CLI", version = "1.0.0")]
+#[command(
+    name = "fgr",
+    about = "Flutter Generate file",
+    version = "1.0.0",
+    author = "tungdo21899@gmail.com"
+)]
 struct Cli {
     #[command(subcommand)]
     commands: Commands,
@@ -30,9 +37,20 @@ enum Commands {
     Generate { name: String },
 }
 
-
 fn create_bloc_files(name: &str) {
     let name_path = format!("./lib/ui/{}", name);
+    println!("output: {}", name_path);
 
-    println!("name: {}", name_path);
+    std::fs::create_dir_all(&name_path).expect("Cannot create folder");
+
+    let bloc_path = format!("{}/bloc", name_path);
+    println!("bloc_path: {}", bloc_path);
+
+    std::fs::create_dir_all(&bloc_path).expect("Cannot create bloc folder");
+
+    std::fs::write(
+        format!("{}/{}_bloc.dart", bloc_path, name),
+        template::bloc::bloc_content(name),
+    )
+    .expect("Cannot create file");
 }
