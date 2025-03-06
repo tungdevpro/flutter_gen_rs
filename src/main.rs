@@ -1,23 +1,38 @@
-use clap::Parser;
+use std::process::exit;
+use clap::{Parser, Subcommand};
 
 mod helper;
 
-#[derive(Parser, Debug)]
-#[command(name = "Flutter Generator")]
-#[command(version = "1.0")]
-#[command(about = "A simple to use and efficient", long_about = None)]
-struct Args {
-    #[arg(short, long)]
-    name: String,
+fn main() {
+    let cli = Cli::parse();
+
+    match cli.commands {
+        Commands::Generate { name } => {
+            if helper::is_flutter_project() {
+                println!("This is a not flutter project");
+                exit(0)
+            }
+            println!("Generating specifications for {}", name);
+            create_bloc_files(&name);
+        }
+    }
 }
 
-fn main() {
-    let is_proj = helper::is_flutter_project();
+#[derive(Parser, Debug)]
+#[command(name = "fgr", about = "This is CLI", version = "1.0.0")]
+struct Cli {
+    #[command(subcommand)]
+    commands: Commands,
+}
 
-    if !is_proj {
-        println!("Not a Flutter project. Exiting...");
-        std::process::exit(0);
-        return;
-    }
-    let args = Args::parse();
+#[derive(Subcommand, Debug)]
+enum Commands {
+    Generate { name: String },
+}
+
+
+fn create_bloc_files(name: &str) {
+    let name_path = format!("./lib/ui/{}", name);
+
+    println!("name: {}", name_path);
 }
