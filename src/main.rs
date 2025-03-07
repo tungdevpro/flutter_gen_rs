@@ -43,14 +43,11 @@ enum Commands {
 }
 
 fn create_bloc_files(name: &str) {
-    // let nameBloc = helper::convert_name_to_upper_case(name);
     let name_path = format!("./lib/ui/{}", name);
-    println!("output: {}", name_path);
 
     std::fs::create_dir_all(&name_path).expect("Cannot create folder");
 
     let bloc_path = format!("{}/bloc", name_path);
-    println!("bloc_path: {}", bloc_path);
 
     std::fs::create_dir_all(&bloc_path).expect("Cannot create bloc folder");
 
