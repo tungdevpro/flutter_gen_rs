@@ -1,3 +1,4 @@
 pub mod bloc;
-mod event;
-mod state;
+pub mod event;
+pub mod state;
+pub mod page;
