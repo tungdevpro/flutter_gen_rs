@@ -6,7 +6,7 @@ import '{name}_event.dart';
 import '{name}_state.dart';
 
 class {class_name}Bloc extends Bloc<{class_name}Event, {class_name}State> {{
-    const {class_name}Bloc : super({class_name}State);
+    const {class_name}Bloc : super({class_name}State());
 }}
     "#,
         name = name,

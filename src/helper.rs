@@ -12,11 +12,14 @@ pub fn convert_name_to_upper_case(name: &str) -> String {
     let mut is_capitalize = true;
 
     for c in name.chars() {
-        if is_capitalize &&  c.is_alphabetic() {
+        if is_capitalize && c.is_alphabetic() {
+            println!("{}", c);
             result.push(c.to_uppercase().next().unwrap());
-            is_capitalize= false
+            is_capitalize = false
         } else {
-            result.push(c);
+            if c.is_alphabetic() {
+                result.push(c);
+            }
             is_capitalize = c == '_';
         }
     }
