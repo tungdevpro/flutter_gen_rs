@@ -16,6 +16,9 @@ fn main() {
             println!("Generating specifications for {}", name);
             create_bloc_files(&name);
         }
+        Commands::Update { .. } => {
+            println!("This is a flutter project");
+        }
     }
 }
 
@@ -33,10 +36,14 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
+    #[clap(name = "generate", about = "Generate bloc files")]
     Generate { name: String },
+    #[clap(name = "update", about = "Update flutter project")]
+    Update { name: String },
 }
 
 fn create_bloc_files(name: &str) {
+    // let nameBloc = helper::convert_name_to_upper_case(name);
     let name_path = format!("./lib/ui/{}", name);
     println!("output: {}", name_path);
 
@@ -49,7 +56,7 @@ fn create_bloc_files(name: &str) {
 
     std::fs::write(
         format!("{}/{}_bloc.dart", bloc_path, name),
-        template::bloc::bloc_content(name),
+        template::bloc::bloc_content(name, &helper::convert_name_to_upper_case(name)),
     )
     .expect("Cannot create file");
 }
