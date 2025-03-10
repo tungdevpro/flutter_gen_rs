@@ -13,7 +13,6 @@ pub fn convert_name_to_upper_case(name: &str) -> String {
 
     for c in name.chars() {
         if is_capitalize && c.is_alphabetic() {
-            println!("{}", c);
             result.push(c.to_uppercase().next().unwrap());
             is_capitalize = false
         } else {
