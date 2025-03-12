@@ -1,5 +1,4 @@
 use clap::{Parser, Subcommand};
-use std::fmt::format;
 use std::path::Path;
 use std::process::exit;
 
